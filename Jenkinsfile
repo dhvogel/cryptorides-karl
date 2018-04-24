@@ -14,6 +14,9 @@ pipeline {
             }
         }
         stage('Build into Docker Image') {
+            agent {
+                docker { image 'docker:18.04' }
+            }
             steps {
                 sh '''
                   version=$(node -e "console.log(require('./package.json').version);")
