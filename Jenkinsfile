@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build into Docker Image') {
             agent {
-                docker { image 'docker:18.04' }
+                docker { image 'docker:17.09.1-ce' }
             }
             steps {
                 sh '''
