@@ -1,1 +1,1 @@
-sh 'ls -lah'
+checkout scm
