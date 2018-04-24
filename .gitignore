@@ -1,3 +1,4 @@
 /.nyc_output
 npm-debug.log
-node_modules/cache/
+node_modules/.cache/
+/coverage

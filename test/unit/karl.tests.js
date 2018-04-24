@@ -10,6 +10,14 @@ chai.use(sinonChai);
 
 describe('GET /jumpbikes', function() {
 
+	beforeEach(function() {
+		sinon.stub(console, 'log');
+	});
+
+	afterEach(function() {
+		console.log.restore();
+	});
+
 	it('should call out to social bicycles', function() {
 
 		const expected = [{personId: 1234}, {personId: 1235}];
@@ -20,7 +28,7 @@ describe('GET /jumpbikes', function() {
 
 		jumpbikes.getAllBikes();
 
-		SoBiStub.should.have.been.called.once;
+		SoBiStub.should.have.been.calledOnce;
 		SoBiStub.should.have.been.calledWith('https://app.socialbicycles.com/api/bikes.json');
 
 	});

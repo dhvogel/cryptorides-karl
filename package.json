@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint test routes",
     "test": "nyc mocha test/unit/**",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "report": "nyc --reporter=lcov npm test"
   },
   "dependencies": {
     "body-parser": "1.17.1",

@@ -6,6 +6,6 @@ module.exports.getAllBikes = function() {
 
 	return request.get('https://app.socialbicycles.com/api/bikes.json')
 		.on('response', function(response) {
-			console.info(response);
+			console.log(response);
 		});
 };

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 /* GET /bikes */
 //eslint-disable-next-line
-router.get('/bikes', function(req, res, next) {
+router.get('/jumpbikes', function(req, res, next) {
 
 });
 
