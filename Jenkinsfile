@@ -18,9 +18,14 @@ pipeline {
             }
             steps {
                 sh '''
-                  version=$(node -e "console.log(require('./package.json').version);")
-                  docker build -t dhvogel/cb-karl:$version .
-                  docker push dhvogel/cb-karl:$version
+                  PACKAGE_VERSION=$(cat package.json \
+                    | grep version \
+                    | head -1 \
+                    | awk -F: '{ print $2 }' \
+                    | sed 's/[",]//g')
+
+                  docker build -t dhvogel/cb-karl:$PACKAGE_VERSION .
+                  docker push dhvogel/cb-karl:$PACKAGE_VERSION
                 '''
             }
         }
