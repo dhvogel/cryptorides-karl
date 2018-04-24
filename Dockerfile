@@ -4,4 +4,6 @@ MAINTAINER Daniel Vogel
 
 COPY . .
 
+RUN npm install
+
 CMD ["npm", "start"]

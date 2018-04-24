@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "develop": "nodemon ./bin/www",
-    "lint": "eslint test routes",
+    "lint": "eslint **.js",
     "test": "nyc mocha test/unit/**",
     "start": "node ./bin/www",
     "report": "nyc --reporter=lcov npm test"
   },
   "dependencies": {
     "body-parser": "1.17.1",
+    "config": "1.30.0",
     "cookie-parser": "1.4.3",
     "debug": "2.6.3",
     "express": "4.15.2",

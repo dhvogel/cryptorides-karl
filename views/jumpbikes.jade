@@ -3,7 +3,11 @@ extends layout
 block content
   h1 Bike Page
   h2 Bike Data (from SoBi):
-  - var languages= data
+  - var bikes= returnedBikes
   div
-  each value in languages
-    p= value
+  each bike in bikes
+    h3= 'Bike ID: ' + bike.id
+    p= 'Battery Level: ' + bike.ebike_battery_level + '%'
+    p= 'Distance Left: ' + bike.ebike_battery_distance + ' miles'
+    p= 'Current Address: ' + bike.address
+    br

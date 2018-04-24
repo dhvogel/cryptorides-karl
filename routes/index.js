@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const jumpbikes = require('./jumpbikes');
 const router = express.Router();
 
 /* GET home page. */
@@ -12,8 +13,10 @@ router.get('/', function(req, res, next) {
 /* GET /bikes */
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res, next) {
-	res.render('jumpbikes', {
-		data: ['a', 'b']
+	jumpbikes.getAllBikes(function(error, response, body) {
+		res.render('jumpbikes', {
+			returnedBikes: JSON.parse(body).items
+		});
 	});
 });
 

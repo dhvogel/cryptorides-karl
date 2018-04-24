@@ -1,11 +1,21 @@
 'use strict';
 
 const request = require('request');
+const config = require('config');
 
-module.exports.getAllBikes = function() {
+module.exports.getAllBikes = function(callback) {
 
-	return request.get('https://app.socialbicycles.com/api/bikes.json')
-		.on('response', function(response) {
-			console.log(response);
-		});
+	const sobiConfig = config.get('sobi');
+
+	let options = {
+		url: 'https://app.socialbicycles.com/api/bikes.json',
+		headers: {
+			'Application-Name': 'CryptoRides',
+			// TODO: fix this
+			'Authorization': `Bearer ${sobiConfig.client_token}`
+		}
+	};
+
+	return request.get(options, callback);
+
 };

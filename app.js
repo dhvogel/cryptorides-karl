@@ -1,5 +1,6 @@
 let express = require('express');
 let path = require('path');
+//eslint-disable-next-line
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
@@ -31,6 +32,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
+// eslint-disable-next-line
 app.use(function(err, req, res, next) {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
