@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "nodemon ./bin/www",
     "lint": "eslint **.js",
-    "test": "nyc mocha test/unit/**",
+    "test": "export NODE_ENV=test && nyc mocha test/unit/**",
     "start": "node ./bin/www",
     "report": "nyc --reporter=lcov npm test"
   },
