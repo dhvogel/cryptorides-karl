@@ -1,6 +1,6 @@
 {
   "name": "cryptobikes-karl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cryptobikes bike service",
   "main": "index.js",
   "scripts": {
