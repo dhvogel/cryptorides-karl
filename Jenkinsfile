@@ -1,16 +1,15 @@
 pipeline {
-    agent {
-        docker { image 'node:7-alpine' }
-    }
+
     stages {
-        stage('Lint') {
-            steps {
-                sh 'npm run lint'
+        stage('Lint and Unit Test') {
+            agent {
+                docker { image 'node:7-alpine' }
             }
-        }
-        stage('Test') {
             steps {
-                sh 'npm test'
+                sh '''
+                  npm run lint
+                  npm test
+                '''
             }
         }
         stage('Build into Docker Image') {
