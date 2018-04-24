@@ -34,9 +34,14 @@ pipeline {
             }
         }
         stage('Bump patch version') {
+            agent {
+                docker { image 'node:7-alpine' }
+            }
             steps {
                 sh '''
                   npm version patch
+
+                  git status
                 '''
             }
         }
