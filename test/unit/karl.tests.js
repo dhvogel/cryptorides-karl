@@ -1,26 +1,26 @@
 'use strict';
-
-const sinon = require('sinon');
 const request = require('request');
 const jumpbikes = require('../../routes/jumpbikes');
 
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
-
-chai.use(sinonChai);
+let chai = require('chai');
+let sinon = require('sinon');
+let sinonChai = require('sinon-chai');
 chai.should();
+chai.use(sinonChai);
 
 describe('GET /jumpbikes', function() {
 
-	it('should return a bunch of JSON data', function() {
+	it('should call out to social bicycles', function() {
 
-		const SoBiStub = sinon.stub(request, 'get');
+		const expected = [{personId: 1234}, {personId: 1235}];
+
+		const SoBiStub = sinon.stub(request, 'get').returns({
+			on:sinon.stub().yields([expected])
+		});
 
 		jumpbikes.getAllBikes();
 
-		console.log(SoBiStub);
-
-		SoBiStub.should.have.been.calledOnce();
+		SoBiStub.should.have.been.called.once;
 		SoBiStub.should.have.been.calledWith('https://app.socialbicycles.com/api/bikes.json');
 
 	});
