@@ -41,7 +41,10 @@ pipeline {
                 sh '''
                   npm version patch
                   apk add --no-cache git
+                  git config --global user.name cbikes-bot
+                  git config --global user.email cbikesbot@gmail.com
                   git commit package.json -m 'bump patch version'
+                  git push https://cbikes-bot:cbikes94@github.com/dhvogel/cryptobikes-karl.git
                 '''
             }
         }
