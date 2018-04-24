@@ -12,7 +12,9 @@ router.get('/', function(req, res, next) {
 /* GET /bikes */
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res, next) {
-
+	res.render('jumpbikes', {
+		data: ['a', 'b']
+	});
 });
 
 module.exports = router;

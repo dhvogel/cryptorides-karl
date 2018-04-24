@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 Bike Page
+  h2 Bike Data (from SoBi):
+  - var languages= data
+  div
+  each value in languages
+    p= value
