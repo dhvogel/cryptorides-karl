@@ -41,7 +41,7 @@ pipeline {
                 sh '''
                   npm version patch
                   apk add --no-cache git
-                  git status
+                  git commit package.json -m 'bump patch version'
                 '''
             }
         }
