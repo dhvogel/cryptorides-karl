@@ -13,7 +13,9 @@ router.get('/', function(req, res, next) {
 /* GET /bikes */
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res, next) {
-	jumpbikes.getAllBikes(function(error, response, body) {
+	const sobiClientToken = jumpbikes.getSoBiClientToken();
+
+	jumpbikes.getAllBikes(sobiClientToken, function(error, response, body) {
 		res.render('jumpbikes', {
 			returnedBikes: JSON.parse(body).items
 		});

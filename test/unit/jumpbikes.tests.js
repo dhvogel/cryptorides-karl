@@ -22,15 +22,15 @@ describe('GET /jumpbikes', function() {
 
 		const SoBiStub = sinon.stub(request, 'get');
 
-		jumpbikes.getAllBikes();
-
-		SoBiStub.should.have.been.calledOnce;
-		SoBiStub.should.have.been.calledWith({
-			headers: {
-				'Application-Name': 'CryptoRides',
-				'Authorization': sinon.match.string
-			},
-			url: 'https://app.socialbicycles.com/api/bikes.json'
+		jumpbikes.getAllBikes('some token', function() {
+			SoBiStub.should.have.been.calledOnce;
+			SoBiStub.should.have.been.calledWith({
+				headers: {
+					'Application-Name': 'CryptoRides',
+					'Authorization': sinon.match.string
+				},
+				url: 'https://app.socialbicycles.com/api/bikes.json'
+			});
 		});
 
 	});
