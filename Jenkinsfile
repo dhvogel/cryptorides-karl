@@ -1,10 +1,14 @@
-
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:7-alpine' }
+    }
     stages {
-        stage('Stage 1') {
+        stage('Test') {
             steps {
-                echo 'Hello world!'
+               sh 'node -v'
+               sh 'npm prune'
+               sh 'npm install'
+               sh 'npm test'
             }
         }
     }

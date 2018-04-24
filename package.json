@@ -1,0 +1,26 @@
+{
+  "name": "cryptobikes-karl",
+  "version": "0.1.0",
+  "description": "Cryptobikes bike service",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "mocha": "5.1.1",
+    "nyc": "11.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhvogel/cryptobikes-karl.git"
+  },
+  "author": "Daniel Vogel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhvogel/cryptobikes-karl/issues"
+  },
+  "homepage": "https://github.com/dhvogel/cryptobikes-karl#readme"
+}
