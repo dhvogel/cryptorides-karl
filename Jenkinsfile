@@ -3,12 +3,14 @@ pipeline {
         docker { image 'node:7-alpine' }
     }
     stages {
+        stage('Lint') {
+            steps {
+                sh 'npm run lint'
+            }
+        }
         stage('Test') {
             steps {
-               sh 'node -v'
-               sh 'npm prune'
-               sh 'npm install'
-               sh 'npm test'
+                sh 'npm test'
             }
         }
     }
