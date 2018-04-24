@@ -4,19 +4,30 @@
   "description": "Cryptobikes bike service",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/ && eslint test/",
-    "test": "nyc mocha"
+    "lint": "eslint test routes",
+    "test": "nyc mocha test/unit/**",
+    "start": "node ./bin/www"
   },
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "1.17.1",
+    "cookie-parser": "1.4.3",
+    "debug": "2.6.3",
+    "express": "4.15.2",
+    "jade": "1.11.0",
+    "morgan": "1.8.1",
+    "serve-favicon": "2.4.2"
+  },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "eslint": "4.19.1",
+    "eslint-config-standard": "11.0.0",
+    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-node": "6.0.1",
+    "eslint-plugin-promise": "3.7.0",
+    "eslint-plugin-standard": "3.0.1",
     "mocha": "5.1.1",
-    "nyc": "11.7.1"
+    "nyc": "11.7.1",
+    "request": "2.85.0",
+    "should": "13.2.1"
   },
   "repository": {
     "type": "git",
