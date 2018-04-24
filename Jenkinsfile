@@ -13,5 +13,21 @@ pipeline {
                 sh 'npm test'
             }
         }
+        stage('Build into Docker Image') {
+            steps {
+                sh '''
+                  version=$(node -e "console.log(require('./package.json').version);")
+                  docker build -t dhvogel/cb-karl:$version .
+                  docker push dhvogel/cb-karl:$version
+                '''
+            }
+        }
+        stage('Bump patch version') {
+            steps {
+                sh '''
+                  npm version patch
+                '''
+            }
+        }
     }
 }
