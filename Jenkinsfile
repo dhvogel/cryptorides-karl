@@ -18,6 +18,8 @@ pipeline {
             }
             steps {
                 sh '''
+                  docker login -u cbikesbot -p cbikes94
+
                   RAW_VERSION=$(cat package.json \
                     | grep version \
                     | head -1 \
