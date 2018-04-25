@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "nodemon ./bin/www",
     "lint": "eslint **.js",
-    "test": "nyc mocha test/unit/**",
+    "test": "nyc mocha --recursive test",
     "start": "node ./bin/www",
     "report": "nyc --reporter=lcov npm test"
   },
@@ -34,7 +34,8 @@
     "request": "2.85.0",
     "should": "13.2.1",
     "sinon": "4.5.0",
-    "sinon-chai": "3.0.0"
+    "sinon-chai": "3.0.0",
+    "supertest": "3.0.0"
   },
   "repository": {
     "type": "git",
