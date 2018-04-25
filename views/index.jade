@@ -1,5 +1,50 @@
-extends layout
+doctype html
+html
+  head
+    style.
+      /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+  body
+    #map
+    script(src='/javascripts/http.min.js')
+    script.
+      var map;
+      function initMap() {
+        var myLatLng = {lat: 37.7749, lng: -122.4194};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: myLatLng
+        });
+        
+        var bikeLocations = http.get({
+            url: '/jumpbikes',
+            onload: function() { 
+              var bikes = JSON.parse(this.responseText)
+              for (var i=0; i<bikes.length; i++) {
+                var bike = bikes[i]
+                var bikePosition = {
+                  lat: bike.current_position.coordinates[1],
+                  lng: bike.current_position.coordinates[0]
+                }
+                var marker = new google.maps.Marker({
+                  position: bikePosition,
+                  map: map,
+                  title: bike.name
+                });
+              }  
+            }
+        });
 
-block content
-  h1= title
-  p Welcome to #{title}
+      }
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCqfh-3un2PUzg8P0R4Xg-W-yK6JYaGCI8&callback=initMap')
+    
+    
