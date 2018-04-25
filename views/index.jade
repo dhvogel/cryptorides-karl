@@ -25,6 +25,16 @@ html
           center: myLatLng
         });
         
+        var image = {
+         url: 'http://i.istockimg.com/file_thumbview_approve/57424520/3/stock-illustration-57424520-transportation-bicycle-flat-icon-with-long-shadow-eps10.jpg',
+         // This marker is 20 pixels wide by 32 pixels high.
+         scaledSize: new google.maps.Size(32, 32),
+         // The origin for this image is (0, 0).
+         origin: new google.maps.Point(0, 0),
+         // The anchor for this image is the base of the flagpole at (0, 32).
+         anchor: new google.maps.Point(0, 32)
+       }
+        
         var bikeLocations = http.get({
             url: '/jumpbikes',
             onload: function() { 
@@ -38,6 +48,7 @@ html
                 var marker = new google.maps.Marker({
                   position: bikePosition,
                   map: map,
+                  icon: image,
                   title: bike.name
                 });
               }  
