@@ -39,7 +39,7 @@ describe('Jumpbikes -- Integration Tests', function() {
 					done();
 				});
 
-		});
+		}).timeout(4000);
 
 	});
 

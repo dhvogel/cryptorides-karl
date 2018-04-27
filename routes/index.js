@@ -2,6 +2,7 @@
 
 const express = require('express');
 const jumpbikes = require('./jumpbikes');
+const async = require('async');
 const router = express.Router();
 
 /* GET home page. */
@@ -17,10 +18,17 @@ router.get('/health', function(req, res) {
 /* GET /bikes */
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res) {
-	const sobiClientToken = jumpbikes.getSoBiClientToken();
 
-	jumpbikes.getAllBikes(sobiClientToken, function(error, response, body) {
-		res.send(JSON.parse(body).items);
+	async.waterfall([
+		function(callback) {
+			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
+				callback(null, sobiClientToken);
+			});
+		}
+	], function(err, sobiClientToken) {
+		jumpbikes.getAllBikes(sobiClientToken, function(error, response, body) {
+			res.send(JSON.parse(body).items);
+		});
 	});
 });
 
