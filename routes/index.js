@@ -27,6 +27,10 @@ router.get('/jumpbikes', function(req, res) {
 		}
 	], function(err, sobiClientToken) {
 		jumpbikes.getAllBikes(sobiClientToken, function(error, response, body) {
+			if (error) {
+				console.log(error);
+				res.send(501);
+			}
 			res.send(JSON.parse(body).items);
 		});
 	});

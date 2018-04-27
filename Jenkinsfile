@@ -9,7 +9,6 @@ pipeline {
             }
             steps {
                 sh '''
-                  echo $AWS_ACCESS_KEY_ID
                   npm install
                   npm run lint
                   npm test
