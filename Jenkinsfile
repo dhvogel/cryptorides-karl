@@ -3,7 +3,10 @@ pipeline {
     stages {
         stage('Lint and Unit Test') {
             agent {
-                docker { image 'node:7-alpine' }
+                docker {
+                  image 'node:7-alpine'
+                  args '-v $HOME/.aws:/root/.aws'
+                }
             }
             steps {
                 sh '''
