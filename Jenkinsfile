@@ -8,6 +8,7 @@ pipeline {
             steps {
                 sh '''
                   export NODE_ENV=test
+                  export AWS_PROFILE=DAN_PERSONAL
                   npm install
                   npm run lint
                   npm test
