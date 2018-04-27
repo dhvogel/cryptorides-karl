@@ -5,14 +5,11 @@ pipeline {
             agent {
                 docker {
                   image 'node:7-alpine'
-                  args '-v $HOME/.aws:/root/.aws'
                 }
             }
             steps {
                 sh '''
-                  export NODE_ENV=test
-                  export AWS_PROFILE=DAN_PERSONAL
-                  pwd
+                  echo $AWS_ACCESS_KEY_ID
                   npm install
                   npm run lint
                   npm test
