@@ -23,9 +23,7 @@ router.get('/jumpbikes', function(req, res) {
 
 	async.waterfall([
 		function(callback) {
-			console.log('in function 1');
 			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
-				console.log(`sobiClientToken ${sobiClientToken}`);
 				callback(null, sobiClientToken);
 			});
 		}

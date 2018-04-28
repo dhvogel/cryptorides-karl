@@ -23,14 +23,12 @@ module.exports.getAllBikes = function(sobiClientToken, callback) {
 
 //TODO: This needs to be revamped to onboard actual people
 module.exports.getSoBiClientToken = function(callback) {
-	console.log('in sobiclienttoken function')
 	if (process.env.NODE_ENV === 'test') {
 		let params = {
 			Bucket: 'cb-secrets-bucket-042618',
 			Key: 'default.json'
 		};
 		s3.getObject(params, function(err, data) {
-			console.log('got s3 object');
 			if (err) console.log(err, err.stack);
 			else {
 				const sobiConfig = JSON.parse(data.Body.toString());
