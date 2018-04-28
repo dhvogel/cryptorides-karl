@@ -43,8 +43,6 @@ describe('Jumpbikes -- Unit Tests', function() {
 
 			});
 
-
-
 		});
 
 	});

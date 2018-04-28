@@ -8,6 +8,7 @@
     "lint": "eslint **.js",
     "test": "nyc mocha --recursive test",
     "test-unit": "nyc mocha --recursive test/unit",
+    "test-integration": "nyc mocha --recursive test/integration",
     "start": "node ./bin/www",
     "report": "nyc --reporter=lcov npm test"
   },

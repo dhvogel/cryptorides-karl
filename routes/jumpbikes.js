@@ -54,7 +54,6 @@ module.exports.getSoBiClientToken = function(callback) {
 
 	} else {
 		const sobiConfig = config.get('sobi');
-
 		callback(sobiConfig.client_token);
 	}
 

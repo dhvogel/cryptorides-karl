@@ -43,4 +43,39 @@ describe('Jumpbikes -- Integration Tests', function() {
 
 	});
 
+
+	describe('GET /jumpbikes/:jumpbikeId', function() {
+
+		it('responds to /jumpbikes/:jumpbikeId', function(done) {
+
+
+			//TODO: Should use stubbing here.
+			const bikeId = '18627';
+
+			request(server)
+				.get(`/jumpbikes/${bikeId}`)
+				.end(function(err, res) {
+					(res.statusCode).should.equal(200);
+					(res.body).should.be.an('object');
+
+					(res.body).should.have.property('id').that.is.a('number');
+					(res.body).should.have.property('name').that.is.a('string');
+					(res.body).should.have.property('network_id').that.is.a('number');
+					(res.body).should.have.property('id').that.is.a('number');
+					(res.body).should.have.property('sponsored').that.is.a('boolean');
+					(res.body).should.have.property('ebike_battery_level').that.is.a('number');
+					(res.body).should.have.property('ebike_battery_distance').that.is.a('number');
+					(res.body).should.have.property('hub_id');
+					(res.body).should.have.property('inside_area').that.is.a('boolean');
+					(res.body).should.have.property('address').that.is.a('string');
+					(res.body).should.have.property('current_position').that.is.an('object');
+
+
+					done();
+				});
+
+		});
+
+	});
+
 });
