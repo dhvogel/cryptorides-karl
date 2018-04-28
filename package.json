@@ -7,6 +7,7 @@
     "develop": "nodemon ./bin/www",
     "lint": "eslint **.js",
     "test": "nyc mocha --recursive test",
+    "test-unit": "nyc mocha --recursive test/unit",
     "start": "node ./bin/www",
     "report": "nyc --reporter=lcov npm test"
   },

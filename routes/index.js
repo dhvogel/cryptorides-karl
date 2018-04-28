@@ -18,7 +18,6 @@ router.get('/health', function(req, res) {
 /* GET /bikes */
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res) {
-
 	async.waterfall([
 		function(callback) {
 			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
@@ -34,6 +33,10 @@ router.get('/jumpbikes', function(req, res) {
 			res.send(JSON.parse(body).items);
 		});
 	});
+});
+
+router.get('/jumpbikes/:jumpbikeId', function() {
+	console.log('GET BY ID');
 });
 
 module.exports = router;
