@@ -9,6 +9,7 @@ pipeline {
             }
             steps {
                 sh '''
+                  export NODE_ENV=test
                   npm install
                   npm run lint
                   npm test
