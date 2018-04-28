@@ -19,9 +19,12 @@ router.get('/health', function(req, res) {
 //eslint-disable-next-line
 router.get('/jumpbikes', function(req, res) {
 
+	console.log('in /jumpbikes');
+
 	async.waterfall([
 		function(callback) {
 			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
+				console.log(`sobiClientToken ${sobiClientToken}`);
 				callback(null, sobiClientToken);
 			});
 		}
