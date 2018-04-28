@@ -33,6 +33,8 @@ describe('Jumpbikes -- Unit Tests', function() {
 					url: 'https://app.socialbicycles.com/api/bikes.json'
 				});
 
+				SoBiStub.restore();
+
 			});
 		});
 	});
