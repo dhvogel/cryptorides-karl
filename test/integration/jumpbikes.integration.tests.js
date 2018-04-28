@@ -1,6 +1,8 @@
-const request = require('supertest');
+const supertest = require('supertest');
 const server = require('../../app');
 const chai = require('chai');
+const request = require('request');
+const sinon = require('sinon');
 
 chai.should();
 
@@ -8,7 +10,7 @@ describe('Jumpbikes -- Integration Tests', function() {
 
 	it('responds to /health (canary test)', function(done) {
 
-		request(server)
+		supertest(server)
 			.get('/health')
 			.expect(200, done);
 
@@ -16,9 +18,56 @@ describe('Jumpbikes -- Integration Tests', function() {
 
 	describe('GET /jumpbikes', function() {
 
+		let requestStub;
+
+		before(function() {
+			requestStub = sinon.stub(request, 'get');
+		});
+
+		after(function() {
+			requestStub.restore();
+		});
+
 		it('responds to /jumpbikes', function(done) {
 
-			request(server)
+			const responseObject = {
+				statusCode: 200,
+			};
+			const responseBody = {
+				'current_page':1,
+				'per_page':100,
+				'total_entries':102,
+				'items':[
+					{
+						'id':18627,
+						'name':'0422',
+						'network_id':155,
+						'sponsored':false,
+						'ebike_battery_level':47,
+						'ebike_battery_distance':17.86,
+						'hub_id':null,
+						'inside_area':true,
+						'address':'1439a Egbert Avenue, San Francisco, CA',
+						'current_position': {
+							'type':'Point',
+							'coordinates':[-122.39331666666666,37.72296166666667]
+						}
+					}
+				]
+			};
+
+			requestStub
+				.withArgs({
+					url: 'https://app.socialbicycles.com/api/bikes.json',
+					headers: {
+						'Application-Name': 'CryptoRides',
+						'Authorization': sinon.match.string
+					}
+				}, sinon.match.func)
+				.yields(null, responseObject, JSON.stringify(responseBody));
+
+
+			supertest(server)
 				.get('/jumpbikes')
 				.end(function(err, res) {
 					(res.statusCode).should.equal(200);
@@ -36,23 +85,60 @@ describe('Jumpbikes -- Integration Tests', function() {
 					(res.body[0]).should.have.property('address').that.is.a('string');
 					(res.body[0]).should.have.property('current_position').that.is.an('object');
 
+					request.get.restore();
+
 					done();
 				});
-
-		}).timeout(5000);
-
+		});
 	});
 
 
 	describe('GET /jumpbikes/:jumpbikeId', function() {
 
+		let requestStub;
+
+		before(function() {
+			requestStub = sinon.stub(request, 'get');
+		});
+
+		after(function() {
+			requestStub.restore();
+		});
+
 		it('responds to /jumpbikes/:jumpbikeId', function(done) {
 
+			const bikeId = 'some_bike_id';
 
-			//TODO: Should use stubbing here.
-			const bikeId = '18627';
+			const responseObject = {
+				statusCode: 200,
+			};
+			const responseBody = {
+				'id':18531,
+				'name':'0612',
+				'network_id':155,
+				'sponsored':false,
+				'ebike_battery_level':61,
+				'ebike_battery_distance':23.18,
+				'hub_id':null,
+				'inside_area':true,
+				'address':'643-699 Washington Street, San Francisco, CA',
+				'current_position': {
+					'type':'Point',
+					'coordinates': [-122.404815,37.79532833333333]
+				}
+			};
 
-			request(server)
+			requestStub
+				.withArgs({
+					url: `https://app.socialbicycles.com/api/bikes/${bikeId}.json`,
+					headers: {
+						'Application-Name': 'CryptoRides',
+						'Authorization': sinon.match.string
+					}
+				}, sinon.match.func)
+				.yields(null, responseObject, JSON.stringify(responseBody));
+
+			supertest(server)
 				.get(`/jumpbikes/${bikeId}`)
 				.end(function(err, res) {
 					(res.statusCode).should.equal(200);
@@ -70,6 +156,7 @@ describe('Jumpbikes -- Integration Tests', function() {
 					(res.body).should.have.property('address').that.is.a('string');
 					(res.body).should.have.property('current_position').that.is.an('object');
 
+					request.get.restore();
 
 					done();
 				});
