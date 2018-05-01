@@ -53,6 +53,9 @@ pipeline {
 
                   PACKAGE_VERSION=`echo $RAW_VERSION`
 
+                  apk update
+                  apk add openssh
+
                   wget -O cb-karl.pem http://cb-secrets-bucket-042618.s3.amazonaws.com/cb-karl.pem
                   chmod 400 cb-karl.pem
                   ssh -i ./cb-karl.pem ubuntu@54.209.147.227
