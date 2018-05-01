@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Lint and Unit Test') {
+        // stage('Lint and Unit Test') {
         //     agent {
         //         docker {
         //           image 'node:7-alpine'
