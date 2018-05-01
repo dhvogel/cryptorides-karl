@@ -38,7 +38,11 @@ pipeline {
         //     }
         // }
         stage('Deploy Image to Dev Environment') {
-            agent none
+          agent {
+                docker {
+                  image 'node:7-alpine'
+                }
+            }
             steps {
                 sh '''
                   RAW_VERSION=$(cat package.json \
