@@ -38,6 +38,7 @@ pipeline {
         //     }
         // }
         stage('Deploy Image to Dev Environment') {
+            agent none
             steps {
                 sh '''
                   RAW_VERSION=$(cat package.json \
