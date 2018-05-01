@@ -53,7 +53,10 @@ pipeline {
 
                   PACKAGE_VERSION=`echo $RAW_VERSION`
 
-                  #aws s3 cp s3://cb-secrets-bucket-042618/cb-karl.pem . --region us-east-1
+                  sudo su -
+                  apt-get update && apt-get install -y awscli
+
+                  aws s3 cp s3://cb-secrets-bucket-042618/cb-karl.pem . --region us-east-1
                   chmod 400 cb-karl.pem
                   ssh-keygen -R hostname
                   ssh -tt -i ./cb-karl.pem ubuntu@54.209.147.227 /bin/bash << EOF
