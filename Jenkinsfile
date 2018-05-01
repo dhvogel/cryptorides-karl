@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy Image to Dev Environment') {
           agent {
                 docker {
-                  image 'hashicorp/terraform:0.11.7'
+                  image 'hashicorp/terraform:0.11.6'
                 }
             }
             steps {
