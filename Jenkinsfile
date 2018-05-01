@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy Image to Dev Environment') {
           agent {
                 docker {
-                  image 'docker pull rastasheep/ubuntu-sshd'
+                  image 'rastasheep/ubuntu-sshd'
                 }
             }
             steps {
