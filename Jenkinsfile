@@ -49,7 +49,7 @@ pipeline {
             steps {
                 sh '''
                   git clone https://cbikes-bot:cbikes94@github.com/dhvogel/cb-infrastructure.git
-                  cd cb-karl-instance
+                  cd cb-infrastructure/cb-karl-instance
                   terraform init
                   terraform destroy -auto-approve
                   terraform apply -auto-approve
