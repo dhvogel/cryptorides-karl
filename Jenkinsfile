@@ -56,7 +56,7 @@ pipeline {
                   apk update
                   apk add openssh
 
-                  sudo wget -O cb-karl.pem http://cb-secrets-bucket-042618.s3.amazonaws.com/cb-karl.pem
+                  aws s3 cp s3://cb-secrets-bucket-042618/cb-karl.pem . --region us-east-1
                   sudo chmod 400 cb-karl.pem
                   ssh -i ./cb-karl.pem ubuntu@54.209.147.227
                   sudo su
