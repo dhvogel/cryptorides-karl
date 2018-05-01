@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy Image to Dev Environment') {
           agent {
                 docker {
-                  image 'node:7-alpine'
+                  image 'infrastructureascode/aws-cli'
                 }
             }
             steps {
