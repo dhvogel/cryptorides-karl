@@ -57,7 +57,7 @@ pipeline {
                   apk add openssh
 
                   aws s3 cp s3://cb-secrets-bucket-042618/cb-karl.pem . --region us-east-1
-                  sudo chmod 400 cb-karl.pem
+                  chmod 400 cb-karl.pem
                   ssh -i ./cb-karl.pem ubuntu@54.209.147.227
                   sudo su
                   docker ps
