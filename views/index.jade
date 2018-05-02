@@ -18,6 +18,17 @@ html
     script(src='/javascripts/http.min.js')
     script.
       var map;
+      
+      function bookBike(id) {
+        http.post({
+          url: '/jumpbikes/' + id,
+          onload: function() {
+            console.log(JSON.parse(this.responseText));
+            alert('Bike ' + id + ' booked!');
+          } 
+        })
+      }
+      
       function initMap() {
         var myLatLng = {lat: 37.7749, lng: -122.4194};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -53,6 +64,7 @@ html
                 
                 windowContents[i] = '<h3>Bike ID: ' + bike.id + '</h3>'
                   + '<h4>Address: ' + bike.address + '</h4>'
+                  + '<button onclick="bookBike(' + bike.id + ')">Book This Bike</button>'
                 
                 infowindows[i] = new google.maps.InfoWindow({
                   content: windowContents[i]
