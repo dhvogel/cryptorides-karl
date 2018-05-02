@@ -35,8 +35,20 @@ module.exports.getSpecificBike = function(sobiClientToken, bikeId, callback) {
 
 };
 
+module.exports.bookBike = function(sobiClientToken, bikeId, callback) {
 
-//TODO: This needs to be revamped to onboard actual people
+	let options = {
+		url: `https://app.socialbicycles.com/api/bikes/${bikeId}/book_bike.json`,
+		headers: {
+			'Application-Name': 'CryptoRides',
+			'Authorization': `Bearer ${sobiClientToken}`
+		}
+	};
+
+	return request.post(options, callback);
+
+};
+
 module.exports.getSoBiClientToken = function(callback) {
 	if (process.env.NODE_ENV === 'test') {
 		let params = {

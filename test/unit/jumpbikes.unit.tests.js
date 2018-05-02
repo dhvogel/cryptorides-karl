@@ -13,14 +13,6 @@ describe('Jumpbikes -- Unit Tests', function() {
 
 	let SoBiStub;
 
-	before(function() {
-		SoBiStub = sinon.stub(request, 'get');
-	});
-
-	after(function() {
-		request.get.restore();
-	});
-
 	it('should pass 1 == 1 (canary test)', function() {
 		const one = 1;
 		one.should.equal(1);
@@ -28,19 +20,25 @@ describe('Jumpbikes -- Unit Tests', function() {
 
 	describe('jumpbikes.getAllBikes', function() {
 
-		it('should call out to social bicycles', function() {
+		before(function() {
+			SoBiStub = sinon.stub(request, 'get');
+		});
 
-			jumpbikes.getAllBikes('some_token', function() {
+		after(function() {
+			request.get.restore();
+		});
 
-				SoBiStub.should.have.been.calledOnce;
-				SoBiStub.should.have.been.calledWith({
-					headers: {
-						'Application-Name': 'CryptoRides',
-						'Authorization': 'Bearer some_token'
-					},
-					url: 'https://app.socialbicycles.com/api/bikes.json'
-				});
+		it('should make GET call to social bicycles /bikes.json endpoint', function() {
 
+			jumpbikes.getAllBikes('some_token', () => {});
+
+			SoBiStub.should.have.been.calledOnce;
+			SoBiStub.should.have.been.calledWith({
+				headers: {
+					'Application-Name': 'CryptoRides',
+					'Authorization': 'Bearer some_token'
+				},
+				url: 'https://app.socialbicycles.com/api/bikes.json'
 			});
 
 		});
@@ -49,7 +47,16 @@ describe('Jumpbikes -- Unit Tests', function() {
 
 	describe('jumpbikes.getSpecificBike', function() {
 
-		jumpbikes.getSpecificBike('some_token', function(bikeId) {
+		before(function() {
+			SoBiStub = sinon.stub(request, 'get');
+		});
+
+		after(function() {
+			request.get.restore();
+		});
+
+		it('should make GET call to /bikes/${bikeId}.json endpoint', function() {
+			jumpbikes.getSpecificBike('some_token', 'some_bike_id', () => {});
 
 			SoBiStub.should.have.been.calledOnce;
 			SoBiStub.should.have.been.calledWith({
@@ -57,7 +64,34 @@ describe('Jumpbikes -- Unit Tests', function() {
 					'Application-Name': 'CryptoRides',
 					'Authorization': 'Bearer some_token'
 				},
-				url: `https://app.socialbicycles.com/api/bikes/${bikeId}.json`
+				url: 'https://app.socialbicycles.com/api/bikes/some_bike_id.json'
+			});
+
+		});
+
+	});
+
+
+	describe('jumpbikes.bookBike', function() {
+
+		before(function() {
+			SoBiStub = sinon.stub(request, 'post');
+		});
+
+		after(function() {
+			request.post.restore();
+		});
+
+		it('should make POST call to bikes/${bike_id}/book_bike.json endpoint', function() {
+			jumpbikes.bookBike('some_token', 'some_bike_id', () => {});
+
+			SoBiStub.should.have.been.calledOnce;
+			SoBiStub.should.have.been.calledWith({
+				headers: {
+					'Application-Name': 'CryptoRides',
+					'Authorization': 'Bearer some_token'
+				},
+				url: 'https://app.socialbicycles.com/api/bikes/some_bike_id/book_bike.json'
 			});
 
 		});
