@@ -33,7 +33,12 @@ html
          origin: new google.maps.Point(0, 0),
          // The anchor for this image is the base of the flagpole at (0, 32).
          anchor: new google.maps.Point(0, 32)
-       }
+        }
+        
+        var markers=[];
+        var infowindows = [];
+        var windowContents = [];
+        var openWindow = 0;
         
         var bikeLocations = http.get({
             url: '/jumpbikes',
@@ -45,12 +50,30 @@ html
                   lat: bike.current_position.coordinates[1],
                   lng: bike.current_position.coordinates[0]
                 }
-                var marker = new google.maps.Marker({
+                
+                windowContents[i] = '<h3>Bike ID: ' + bike.id + '</h3>'
+                  + '<h4>Address: ' + bike.address + '</h4>'
+                
+                infowindows[i] = new google.maps.InfoWindow({
+                  content: windowContents[i]
+                });
+                
+                markers[i] = new google.maps.Marker({
                   position: bikePosition,
                   map: map,
                   icon: image,
                   title: bike.name
                 });
+                
+                markers[i].index = i;
+                
+                google.maps.event.addListener(markers[i], 'click', function() {
+                    infowindows[openWindow].close();
+                    console.log(this.index); // this will give correct index
+                    openWindow = this.index;
+                    infowindows[this.index].open(map,markers[this.index]);
+                    map.panTo(markers[this.index].getPosition());
+                }); 
               }  
             }
         });
