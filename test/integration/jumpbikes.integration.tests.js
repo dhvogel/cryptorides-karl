@@ -25,7 +25,7 @@ describe('Jumpbikes -- Integration Tests', function() {
 		});
 
 		after(function() {
-			requestStub.restore();
+			request.get.restore();
 		});
 
 		it('responds to /jumpbikes', function(done) {
@@ -85,8 +85,6 @@ describe('Jumpbikes -- Integration Tests', function() {
 					(res.body[0]).should.have.property('address').that.is.a('string');
 					(res.body[0]).should.have.property('current_position').that.is.an('object');
 
-					request.get.restore();
-
 					done();
 				});
 		});
@@ -102,7 +100,7 @@ describe('Jumpbikes -- Integration Tests', function() {
 		});
 
 		after(function() {
-			requestStub.restore();
+			request.get.restore();
 		});
 
 		it('responds to /jumpbikes/:jumpbikeId', function(done) {
@@ -156,7 +154,71 @@ describe('Jumpbikes -- Integration Tests', function() {
 					(res.body).should.have.property('address').that.is.a('string');
 					(res.body).should.have.property('current_position').that.is.an('object');
 
-					request.get.restore();
+					done();
+				});
+
+		});
+
+	});
+
+
+	describe('POST /jumpbikes/:jumpbikeId', function() {
+
+		let requestStub;
+
+		before(function() {
+			requestStub = sinon.stub(request, 'post');
+		});
+
+		after(function() {
+			request.post.restore();
+		});
+
+		it('responds to /jumpbikes/:jumpbikeId', function(done) {
+
+			const bikeId = 'some_bike_id';
+
+			const responseObject = {
+				statusCode: 200,
+			};
+			const responseBody = {
+				'id': 18027,
+				'name': '0477',
+				'network_id': 155,
+				'sponsored': false,
+				'ebike_battery_level': 33,
+				'ebike_battery_distance': 12.54,
+				'hub_id': null,
+				'inside_area': true,
+				'address': '614 Carolina Street, San Francisco, CA',
+				'current_position': {
+					'type': 'Point',
+					'coordinates': [
+						-122.40025833333333,
+						37.760828333333336
+					]
+				},
+				'state': 'booked',
+				'start': 1525235197,
+				'expires': 1525236997,
+				'left': 1800
+			};
+
+			requestStub
+				.withArgs({
+					url: `https://app.socialbicycles.com/api/bikes/${bikeId}/book_bike.json`,
+					headers: {
+						'Application-Name': 'CryptoRides',
+						'Authorization': sinon.match.string
+					}
+				}, sinon.match.func)
+				.yields(null, responseObject, JSON.stringify(responseBody));
+
+			supertest(server)
+				.post(`/jumpbikes/${bikeId}`)
+				.end(function(err, res) {
+					(res.statusCode).should.equal(200);
+					(res.body).should.be.an('object');
 
 					done();
 				});

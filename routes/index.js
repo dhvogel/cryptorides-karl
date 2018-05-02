@@ -5,8 +5,6 @@ const jumpbikes = require('./jumpbikes');
 const async = require('async');
 const router = express.Router();
 
-/* GET home page. */
-//eslint-disable-next-line
 router.get('/', function(req, res) {
 	res.render('index', { title: 'Express' });
 });
@@ -15,8 +13,6 @@ router.get('/health', function(req, res) {
 	res.send('OK');
 });
 
-/* GET /bikes */
-//eslint-disable-next-line
 router.get('/jumpbikes', function(req, res) {
 	async.waterfall([
 		function(callback) {
@@ -44,6 +40,25 @@ router.get('/jumpbikes/:jumpbikeId', function(req, res) {
 		}
 	], function(err, sobiClientToken) {
 		jumpbikes.getSpecificBike(sobiClientToken, req.params.jumpbikeId,
+			function(error, response, body) {
+				if (error) {
+					console.log(error);
+					res.send(501);
+				}
+				res.send(JSON.parse(body));
+			});
+	});
+});
+
+router.post('/jumpbikes/:jumpbikeId', function(req, res) {
+	async.waterfall([
+		function(callback) {
+			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
+				callback(null, sobiClientToken);
+			});
+		}
+	], function(err, sobiClientToken) {
+		jumpbikes.bookBike(sobiClientToken, req.params.jumpbikeId,
 			function(error, response, body) {
 				if (error) {
 					console.log(error);
