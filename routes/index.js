@@ -50,23 +50,23 @@ router.get('/jumpbikes/:jumpbikeId', function(req, res) {
 	});
 });
 
-router.post('/jumpbikes/:jumpbikeId', function(req, res) {
-	async.waterfall([
-		function(callback) {
-			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
-				callback(null, sobiClientToken);
-			});
-		}
-	], function(err, sobiClientToken) {
-		jumpbikes.bookBike(sobiClientToken, req.params.jumpbikeId,
-			function(error, response, body) {
-				if (error) {
-					console.log(error);
-					res.send(501);
-				}
-				res.send(JSON.parse(body));
-			});
-	});
-});
+// router.post('/jumpbikes/:jumpbikeId', function(req, res) {
+// 	async.waterfall([
+// 		function(callback) {
+// 			jumpbikes.getSoBiClientToken(function(sobiClientToken) {
+// 				callback(null, sobiClientToken);
+// 			});
+// 		}
+// 	], function(err, sobiClientToken) {
+// 		jumpbikes.bookBike(sobiClientToken, req.params.jumpbikeId,
+// 			function(error, response, body) {
+// 				if (error) {
+// 					console.log(error);
+// 					res.send(501);
+// 				}
+// 				res.send(JSON.parse(body));
+// 			});
+// 	});
+// });
 
 module.exports = router;
