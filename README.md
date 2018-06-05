@@ -60,7 +60,7 @@ $ npm run test-unit
 Supertest integration testing framework used.
 
 ```
-$ npm run test-Integration
+$ npm run test-integration
 ```
 
 ## Routes
