@@ -69,7 +69,7 @@ pipeline {
                   git config --global user.name cbikes-bot
                   git config --global user.email cbikesbot@gmail.com
                   git commit package.json -m "bump patch version to $CURRENT_VERSION"
-                  git push https://cbikes-bot:cbikes94@github.com/dhvogel/cryptobikes-karl.git HEAD:master
+                  git push https://cbikes-bot:cbikes94@github.com/dhvogel/cryptorides-karl.git HEAD:master
                 '''
             }
         }

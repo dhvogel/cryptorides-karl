@@ -1,7 +1,7 @@
 {
-  "name": "cryptobikes-karl",
+  "name": "cryptorides-karl",
   "version": "0.2.1",
-  "description": "Cryptobikes bike service",
+  "description": "Cryptorides bike service",
   "main": "index.js",
   "scripts": {
     "develop": "nodemon ./bin/www",
@@ -43,12 +43,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dhvogel/cryptobikes-karl.git"
+    "url": "git+https://github.com/dhvogel/cryptorides-karl.git"
   },
   "author": "Daniel Vogel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dhvogel/cryptobikes-karl/issues"
+    "url": "https://github.com/dhvogel/cryptorides-karl/issues"
   },
-  "homepage": "https://github.com/dhvogel/cryptobikes-karl#readme"
+  "homepage": "https://github.com/dhvogel/cryptorides-karl#readme"
 }
