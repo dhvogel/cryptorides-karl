@@ -59,13 +59,13 @@ module.exports.getSoBiClientToken = function(callback) {
 			if (err) console.log(err, err.stack);
 			else {
 				const config = JSON.parse(data.Body.toString());
-				callback(config.sobi.client_token);
+				callback(config.sobi.clientToken);
 			}
 		});
 
 	} else {
 		const sobiConfig = config.get('sobi');
-		callback(sobiConfig.client_token);
+		callback(sobiConfig.clientToken);
 	}
 
 };
