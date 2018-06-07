@@ -49,8 +49,9 @@ pipeline {
             steps {
                 sh '''
                   rm -rf cb-infrastructure
-                  git clone https://cbikes-bot:cbikes94@github.com/dhvogel/cb-infrastructure.git
-                  cd cb-infrastructure/cb-karl-instance
+                  rm -rf cryptorides-karl
+                  git clone https://cbikes-bot:cbikes94@github.com/dhvogel/cryptorides-infrastructure.git
+                  cd cryptorides-infrastructure/cb-karl-instance
                   terraform init
                   terraform destroy -auto-approve
                   terraform apply -auto-approve
