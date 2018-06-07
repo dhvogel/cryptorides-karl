@@ -11,7 +11,7 @@ chai.use(sinonChai);
 
 describe('Jumpbikes -- Unit Tests', function() {
 
-	let SoBiStub;
+	let requestStub;
 
 	it('should pass 1 == 1 (canary test)', function() {
 		const one = 1;
@@ -21,7 +21,7 @@ describe('Jumpbikes -- Unit Tests', function() {
 	describe('jumpbikes.getAllBikes', function() {
 
 		before(function() {
-			SoBiStub = sinon.stub(request, 'get');
+			requestStub = sinon.stub(request, 'get');
 		});
 
 		after(function() {
@@ -32,8 +32,8 @@ describe('Jumpbikes -- Unit Tests', function() {
 
 			jumpbikes.getAllBikes('some_token', () => {});
 
-			SoBiStub.should.have.been.calledOnce;
-			SoBiStub.should.have.been.calledWith({
+			requestStub.should.have.been.calledOnce;
+			requestStub.should.have.been.calledWith({
 				headers: {
 					'Application-Name': 'CryptoRides',
 					'Authorization': 'Bearer some_token'
@@ -48,7 +48,7 @@ describe('Jumpbikes -- Unit Tests', function() {
 	describe('jumpbikes.getSpecificBike', function() {
 
 		before(function() {
-			SoBiStub = sinon.stub(request, 'get');
+			requestStub = sinon.stub(request, 'get');
 		});
 
 		after(function() {
@@ -58,8 +58,8 @@ describe('Jumpbikes -- Unit Tests', function() {
 		it('should make GET call to /bikes/${bikeId}.json endpoint', function() {
 			jumpbikes.getSpecificBike('some_token', 'some_bike_id', () => {});
 
-			SoBiStub.should.have.been.calledOnce;
-			SoBiStub.should.have.been.calledWith({
+			requestStub.should.have.been.calledOnce;
+			requestStub.should.have.been.calledWith({
 				headers: {
 					'Application-Name': 'CryptoRides',
 					'Authorization': 'Bearer some_token'
@@ -75,7 +75,7 @@ describe('Jumpbikes -- Unit Tests', function() {
 	describe('jumpbikes.bookBike', function() {
 
 		before(function() {
-			SoBiStub = sinon.stub(request, 'post');
+			requestStub = sinon.stub(request, 'post');
 		});
 
 		after(function() {
@@ -85,8 +85,8 @@ describe('Jumpbikes -- Unit Tests', function() {
 		it('should make POST call to bikes/${bike_id}/book_bike.json endpoint', function() {
 			jumpbikes.bookBike('some_token', 'some_bike_id', () => {});
 
-			SoBiStub.should.have.been.calledOnce;
-			SoBiStub.should.have.been.calledWith({
+			requestStub.should.have.been.calledOnce;
+			requestStub.should.have.been.calledWith({
 				headers: {
 					'Application-Name': 'CryptoRides',
 					'Authorization': 'Bearer some_token'
