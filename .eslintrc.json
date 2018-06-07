@@ -8,6 +8,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "camelcase": "error",
         "indent": [
             "error",
             "tab"

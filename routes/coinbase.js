@@ -6,12 +6,13 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
 
-module.exports.getUser = function(coinbaseClientToken, callback) {
+module.exports.getUser = function(cbClientToken, cbApiVersion, callback) {
 
 	let options = {
 		url: 'https://api.coinbase.com/v2/user',
 		headers: {
-			'Authorization': `Bearer ${coinbaseClientToken}`
+			'Authorization': `Bearer ${cbClientToken}`,
+			'CB-VERSION': `${cbApiVersion}`
 		}
 	};
 
@@ -19,16 +20,16 @@ module.exports.getUser = function(coinbaseClientToken, callback) {
 
 };
 
-module.exports.createCharge = function(api_key, api_version, charge_name, description, amt, currency, callback) {
+module.exports.createCharge = function(cbApiKey, cbApiVersion, chargeName, description, amt, currency, callback) {
 
 	let options = {
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CC-Api-Key': api_key,
-			'X-CC-Version': api_version
+			'X-CC-Api-Key': cbApiKey,
+			'X-CC-Version': cbApiVersion
 		},
 		body: {
-			'name': charge_name,
+			'name': chargeName,
 			'description': description,
 			'local_price': {
 				'amount': amt,
@@ -54,17 +55,17 @@ module.exports.getCoinbaseApiKey = function(callback) {
 			if (err) console.log(err, err.stack);
 			else {
 				const config = JSON.parse(data.Body.toString());
-				callback(config.coinbase.api_key);
+				callback(config.coinbase.apiKey);
 			}
 		});
 
 	} else {
 		const coinbaseConfig = config.get('coinbase');
-		callback(coinbaseConfig.api_key);
+		callback(coinbaseConfig.apiKey);
 	}
 };
 
 module.exports.getCoinbaseClientToken = function(callback) {
 	const coinbaseConfig = config.get('coinbase');
-	callback(coinbaseConfig.client_token);
+	callback(coinbaseConfig.clientToken);
 };

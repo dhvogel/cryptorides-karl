@@ -68,12 +68,13 @@ describe('Coinbase -- Unit Tests', function() {
 
 		it('should make a GET call to coinbase /user endpoint', function() {
 
-			coinbase.getUser('some_token', () => {});
+			coinbase.getUser('some_token', 'some_api_version', () => {});
 
 			requestStub.should.have.been.calledOnce;
 			requestStub.should.have.been.calledWith({
 				headers: {
-					'Authorization': 'Bearer some_token'
+					'Authorization': 'Bearer some_token',
+					'CB-VERSION': 'some_api_version'
 				},
 				url: 'https://api.coinbase.com/v2/user'
 			});
