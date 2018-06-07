@@ -56,4 +56,30 @@ describe('Coinbase -- Unit Tests', function() {
 
 	});
 
+	describe('coinbase.getUser', function() {
+
+		before(function() {
+			requestStub = sinon.stub(request, 'get');
+		});
+
+		after(function() {
+			request.get.restore();
+		});
+
+		it('should make a GET call to coinbase /user endpoint', function() {
+
+			coinbase.getUser('some_token', () => {});
+
+			requestStub.should.have.been.calledOnce;
+			requestStub.should.have.been.calledWith({
+				headers: {
+					'Authorization': 'Bearer some_token'
+				},
+				url: 'https://api.coinbase.com/v2/user'
+			});
+
+		});
+
+	});
+
 });
