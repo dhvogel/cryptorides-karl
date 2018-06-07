@@ -5,6 +5,20 @@ const config = require('config');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
+
+module.exports.getUser = function(coinbaseClientToken, callback) {
+
+	let options = {
+		url: 'https://api.coinbase.com/v2/user',
+		headers: {
+			'Authorization': `Bearer ${coinbaseClientToken}`
+		}
+	};
+
+	return request.get(options, callback);
+
+};
+
 module.exports.createCharge = function(api_key, api_version, charge_name, description, amt, currency, callback) {
 
 	let options = {
@@ -48,5 +62,9 @@ module.exports.getCoinbaseApiKey = function(callback) {
 		const coinbaseConfig = config.get('coinbase');
 		callback(coinbaseConfig.api_key);
 	}
+};
 
+module.exports.getCoinbaseClientToken = function(callback) {
+	const coinbaseConfig = config.get('coinbase');
+	callback(coinbaseConfig.client_token);
 };
