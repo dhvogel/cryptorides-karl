@@ -25,23 +25,34 @@ describe('Coinbase -- Unit Tests', function() {
 		});
 
 		after(function() {
-			request.get.restore();
+			request.post.restore();
 		});
 
-		// it('should make POST call to coinbase commerce /charges endpoint', function() {
-    //
-		// 	coinbase.createCharge('some_api_key', () => {});
-    //
-		// 	requestStub.should.have.been.calledOnce;
-		// 	requestStub.should.have.been.calledWith({
-		// 		headers: {
-		// 			'Application-Name': 'CryptoRides',
-		// 			'Authorization': 'Bearer some_token'
-		// 		},
-		// 		url: 'https://app.socialbicycles.com/api/bikes.json'
-		// 	});
-    //
-		// });
+		it('should make POST call to coinbase commerce /charges endpoint', function() {
+
+			coinbase.createCharge('some_api_key', 'api_version', 'some_charge_name', 'some_description', 'some_amt', 'some_currency', () => {});
+
+			requestStub.should.have.been.calledOnce;
+			requestStub.should.have.been.calledWith({
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CC-Api-Key': 'some_api_key',
+					'X-CC-Version': 'api_version'
+				},
+				body: {
+					'name': 'some_charge_name',
+					'description': 'some_description',
+					'local_price': {
+						'amount': 'some_amt',
+						'currency': 'some_currency'
+					},
+					'pricing_type': 'fixed_price',
+				},
+				json: true,
+				url: 'https://api.commerce.coinbase.com/charges'
+			});
+
+		});
 
 	});
 
