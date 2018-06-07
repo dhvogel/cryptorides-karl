@@ -50,7 +50,7 @@ module.exports.bookBike = function(sobiClientToken, bikeId, callback) {
 };
 
 module.exports.getSoBiClientToken = function(callback) {
-	if (process.env.NODE_ENV === 'test') {
+	if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
 		let params = {
 			Bucket: 'cb-secrets-bucket-042618',
 			Key: 'default.json'
@@ -58,9 +58,8 @@ module.exports.getSoBiClientToken = function(callback) {
 		s3.getObject(params, function(err, data) {
 			if (err) console.log(err, err.stack);
 			else {
-				const sobiConfig = JSON.parse(data.Body.toString());
-				const sobiClientToken = sobiConfig.sobi.client_token;
-				callback(sobiClientToken);
+				const config = JSON.parse(data.Body.toString());
+				callback(config.sobi.client_token);
 			}
 		});
 

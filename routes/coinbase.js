@@ -29,3 +29,24 @@ module.exports.createCharge = function(api_key, api_version, charge_name, descri
 	return request.post(options, callback);
 
 };
+
+module.exports.getCoinbaseApiKey = function(callback) {
+	if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
+		let params = {
+			Bucket: 'cb-secrets-bucket-042618',
+			Key: 'default.json'
+		};
+		s3.getObject(params, function(err, data) {
+			if (err) console.log(err, err.stack);
+			else {
+				const config = JSON.parse(data.Body.toString());
+				callback(config.coinbase.api_key);
+			}
+		});
+
+	} else {
+		const coinbaseConfig = config.get('coinbase');
+		callback(coinbaseConfig.api_key);
+	}
+
+};
