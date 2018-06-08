@@ -89,8 +89,73 @@ html
               }  
             }
         });
+        
+        function CenterControl(controlDiv, map) {
+
+          // Set CSS for the control border.
+          var controlUI = document.createElement('div');
+          controlUI.style.backgroundColor = '#4169E1';
+          controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+          controlUI.style.cursor = 'pointer';
+          controlUI.style.marginBottom = '22px';
+          controlUI.style.textAlign = 'center';
+          controlUI.title = 'Login with Coinbase';
+          controlDiv.appendChild(controlUI);
+
+          // Set CSS for the control interior.
+          var controlText = document.createElement('div');
+          controlText.style.color = '#fff';
+          controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+          controlText.style.fontSize = '16px';
+          controlText.style.lineHeight = '38px';
+          controlText.style.paddingLeft = '5px';
+          controlText.style.paddingRight = '5px';
+          controlText.innerHTML = 'Login with Coinbase';
+          controlUI.appendChild(controlText);
+
+          // Setup the click event listeners: simply set the map to Chicago.
+          controlUI.addEventListener('click', function() {
+            function oauthSignIn() {
+                // Google's OAuth 2.0 endpoint for requesting an access token
+                var oauth2Endpoint = 'https://www.coinbase.com/oauth/authorize';
+
+                // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+                var form = document.createElement('form');
+                form.setAttribute('method', 'GET'); // Send as a GET request.
+                form.setAttribute('action', oauth2Endpoint);
+
+                // Parameters to pass to OAuth 2.0 endpoint.
+                var params = {'client_id': '5488cbdec5d0893c05cf305e88d022b991f4b4714054258dee1866779b797000',
+                              'response_type': 'code',
+                              'scope': 'wallet:user:read,wallet:accounts:read',
+                              'state': 'test-state'};
+
+                // Add form parameters as hidden input values.
+                for (var p in params) {
+                  var input = document.createElement('input');
+                  input.setAttribute('type', 'hidden');
+                  input.setAttribute('name', p);
+                  input.setAttribute('value', params[p]);
+                  form.appendChild(input);
+                }
+
+                // Add form to page and submit it to open the OAuth 2.0 endpoint.
+                document.body.appendChild(form);
+                form.submit();
+            }
+            
+            oauthSignIn()
+          });
+
+      }
+      
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+        
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCqfh-3un2PUzg8P0R4Xg-W-yK6JYaGCI8&callback=initMap')
-    
+    p test
     
