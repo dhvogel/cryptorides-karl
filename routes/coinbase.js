@@ -75,7 +75,7 @@ module.exports.getCoinbaseClientToken = function(callback) {
 			if (err) console.log(err, err.stack);
 			else {
 				const config = JSON.parse(data.Body.toString());
-				callback(config.coinbase.apiKey);
+				callback(config.coinbase.clientToken);
 			}
 		});
 	} else {

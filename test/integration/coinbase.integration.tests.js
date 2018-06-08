@@ -32,6 +32,8 @@ describe('Coinbase -- Integration Tests', function() {
 
 		it('responds to /coinbase/user', function(done) {
 
+			this.timeout(5000)
+
 			const responseObject = {
 				statusCode: 200,
 			};

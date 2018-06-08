@@ -107,6 +107,8 @@ describe('Jumpbikes -- Integration Tests', function() {
 
 		it('responds to /jumpbikes/:jumpbikeId', function(done) {
 
+			this.timeout(5000)
+
 			const bikeId = 'some_bike_id';
 
 			const responseObject = {
