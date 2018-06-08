@@ -66,6 +66,20 @@ module.exports.getCoinbaseApiKey = function(callback) {
 };
 
 module.exports.getCoinbaseClientToken = function(callback) {
-	const coinbaseConfig = config.get('coinbase');
-	callback(coinbaseConfig.clientToken);
+	if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
+		let params = {
+			Bucket: 'cb-secrets-bucket-042618',
+			Key: 'default.json'
+		};
+		s3.getObject(params, function(err, data) {
+			if (err) console.log(err, err.stack);
+			else {
+				const config = JSON.parse(data.Body.toString());
+				callback(config.coinbase.apiKey);
+			}
+		});
+	} else {
+		const coinbaseConfig = config.get('coinbase');
+		callback(coinbaseConfig.clientToken);
+	}
 };
