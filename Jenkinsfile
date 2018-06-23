@@ -50,7 +50,7 @@ pipeline {
                 sh '''
                   rm -rf cb-infrastructure
                   rm -rf cryptorides-infrastructure
-                  git clone https://cbikes-bot:cbikes94@github.com/dhvogel/cryptorides-infrastructure.git
+                  git clone https://cbikes-bot:cbikes94@github.com/dhvogel/cryptorides-infra.git
                   cd cryptorides-infrastructure/cb-karl-instance
                   terraform init
                   terraform destroy -auto-approve
