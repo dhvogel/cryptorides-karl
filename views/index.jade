@@ -37,7 +37,7 @@ html
         });
         
         var image = {
-         url: 'http://i.istockimg.com/file_thumbview_approve/57424520/3/stock-illustration-57424520-transportation-bicycle-flat-icon-with-long-shadow-eps10.jpg',
+         url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
          // This marker is 20 pixels wide by 32 pixels high.
          scaledSize: new google.maps.Size(32, 32),
          // The origin for this image is (0, 0).
@@ -156,6 +156,42 @@ html
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }
+      
+      function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      /* Validate the access token received on the query string. */
+      function exchangeOAuth2Token(code) {
+        var oauth2Endpoint = 'https://api.coinbase.com/oauth/token';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', oauth2Endpoint + '?grant_type=authorization_code&code=' + code + '&client_id=5488cbdec5d0893c05cf305e88d022b991f4b4714054258dee1866779b797000&client_secret=deb5a902c4df89158191785ea5454154f362fcd2b6f327fe09e75788a6609605&redirect_uri=http://localhost:3000');
+        xhr.onreadystatechange = function (e) {
+          var response = JSON.parse(xhr.response);
+          console.log(response);
+          // Verify that the 'aud' property in the response matches YOUR_CLIENT_ID.
+          //- if (xhr.readyState == 4 &&
+          //-     xhr.status == 200 &&
+          //-     response['aud'] &&
+          //-     response['aud'] == YOUR_CLIENT_ID) {
+          //-   localStorage.setItem('oauth2-test-params', JSON.stringify(params) );
+          //- } else if (xhr.readyState == 4) {
+          //-   console.log('There was an error processing the token, another ' +
+          //-               'response was returned, or the token was invalid.')
+          //- }
+        };
+        xhr.send(null);
+      }
+      
+      var code = getParameterByName('code');
+      if (code != null) {
+        exchangeOAuth2Token(code)
+      }
     script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCqfh-3un2PUzg8P0R4Xg-W-yK6JYaGCI8&callback=initMap')
-    p test
     
