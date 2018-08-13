@@ -12,7 +12,7 @@ pipeline {
                   export NODE_ENV=test
                   npm install
                   npm run lint
-                  npm run test-unit
+                  npm test
                 '''
             }
         }
